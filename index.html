@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nurul Pusparini Az-zahra | Dashboard Eksponen</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif}
+
+        body{
+            margin:0;
+            background: #D2B48C; 
+            color: #3E2723; 
+            overflow-x:hidden;
+        }
+
+        /* NAVBAR */
+        .navbar{
+            background: #5D4037; 
+            border-bottom: 2px solid #3E2723;
+        }
+
+        .brand{
+            display:flex;
+            align-items:center;
+            gap:10px;
+            font-weight:800;
+            font-size:20px;
+            color: #D2B48C; 
+            text-decoration:none;
+        }
+
+        /* HERO */
+        .hero{
+            min-height: 100vh;
+            padding:100px 15px 40px;
+        }
+
+        .hero h1{
+            font-size:3.5rem;
+            font-weight:800;
+            color: #3E2723;
+        }
+
+        /* CARD SECTION */
+        .section{
+            background: #F5F5DC; 
+            border: 2px solid #5D4037;
+            border-radius:18px;
+            padding:25px;
+            margin-bottom:30px;
+            box-shadow: 0 8px 15px rgba(62, 39, 35, 0.2);
+        }
+
+        .geo-box{
+            background: #EADBC8;
+            border: 1px solid #5D4037;
+            border-radius:16px;
+            padding:20px;
+            margin-bottom: 15px;
+        }
+
+        /* SIMULATOR BOX */
+        .simulator-card {
+            background: linear-gradient(135deg, #FAF3E0, #EADBC8);
+            border: 3px solid #5D4037;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .math-display {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #3E2723;
+        }
+
+        .result-display {
+            font-size: 3.5rem;
+            color: #3E2723;
+            font-weight: 900;
+        }
+
+        /* TAB MENU */
+        .tab-menu{
+            display:flex;
+            gap:10px;
+            margin-bottom:20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-menu button{
+            background: #EADBC8;
+            color: #3E2723;
+            border: 2px solid #5D4037;
+            padding:10px 20px;
+            border-radius:12px;
+            cursor:pointer;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        .tab-menu button:hover,
+        .tab-menu button.active{
+            background: #5D4037;
+            color: #D2B48C;
+        }
+
+        .tab-content{display:none}
+        .tab-content.active{display:block}
+
+        input[type=range] { width: 100%; accent-color: #5D4037; cursor: pointer; }
+
+        @media(max-width:768px){
+            .hero h1{font-size:2.5rem}
+            .math-display{font-size: 2.5rem}
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar fixed-top">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="brand" href="#">
+            <i class="fa-solid fa-graduation-cap"></i>
+            Nurul Pusparini Az-zahra
+        </a>
+        <span class="badge text-white" style="background-color: #3E2723;">E-Learning Eksponen</span>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <small class="text-uppercase fw-bold" style="color: #3E2723;">Digital Learning Media</small>
+        <h1 class="mt-2">BILANGAN BERPANGKAT</h1>
+        <p class="mt-3 fs-5" style="color: #5D4037;">
+            Eksplorasi konsep matematika interaktif bersama Nurul Pusparini Az-zahra.
+        </p>
+
+        <div class="section">
+            <h4 class="mb-3" style="color: #3E2723;">
+                <i class="fa-solid fa-book-open"></i> Apa itu Bilangan Berpangkat?
+            </h4>
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <p style="text-align:justify" class="fs-5">
+                        Bilangan berpangkat adalah bentuk <b>perkalian berulang</b> dari suatu bilangan (disebut <b>basis / bilangan pokok</b>) dengan dirinya sendiri sebanyak pangkatnya (<b>n</b>). Secara umum ditulis:
+                    </p>
+                    <div class="geo-box text-center">
+                        <h2 style="color: #3E2723;">a<sup>n</sup> = a × a × a × ... × a</h2>
+                        <small style="color: #5D4037;">(Sebanyak n faktor)</small>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="geo-box">
+                        <ul class="list-unstyled mb-0">
+                            <li><i class="fa-solid fa-check me-2"></i> <b>a (basis)</b> = bilangan pokok</li>
+                            <li><i class="fa-solid fa-check me-2"></i> <b>n (eksponen)</b> = pangkat</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section mt-4">
+            <h2 class="mb-4 text-center" style="color: #3E2723;">Power Simulator Interaktif</h2>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="simulator-card">
+                        <div class="math-display">
+                            <span id="baseText">5</span><sup id="expText">3</sup>
+                        </div>
+                        <div class="mt-2 fs-5" style="color: #5D4037;">Hasil:</div>
+                        <div class="result-display fw-bold" id="resValue">125</div>
+                        <div class="mt-3 p-2 bg-white text-dark rounded border" id="stepVisual" style="font-style: italic; font-size: 0.9rem;">
+                            5 × 5 × 5
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="geo-box h-100 d-flex flex-column justify-content-center">
+                        <div class="mb-4">
+                            <label class="form-label d-flex justify-content-between">
+                                <span>Basis (a)</span>
+                                <b style="color: #3E2723;" id="lblA">5</b>
+                            </label>
+                            <input type="range" id="inputA" min="1" max="10" value="5" oninput="updateSim()">
+                        </div>
+                        <div class="mb-2">
+                            <label class="form-label d-flex justify-content-between">
+                                <span>Pangkat (n)</span>
+                                <b style="color: #3E2723;" id="lblN">3</b>
+                            </label>
+                            <input type="range" id="inputN" min="0" max="10" value="3" oninput="updateSim()">
+                        </div>
+                        <p class="small mt-3 italic" style="color: #5D4037;">*Geser slider untuk melihat sifat nilai secara otomatis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 style="color: #3E2723;"><i class="fa-solid fa-lightbulb"></i> Eksplorasi Konsep</h2>
+            <div class="tab-menu">
+                <button class="active" onclick="openTab(this,'sifat1')">Pangkat Positif</button>
+                <button onclick="openTab(this,'sifat2')">Pangkat Nol</button>
+                <button onclick="openTab(this,'sifat3')">Pangkat Negatif</button>
+                <button onclick="openTab(this,'sifat4')">Pangkat Pecahan</button>
+            </div>
+
+            <div class="geo-box">
+                <div id="sifat1" class="tab-content active">
+                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>m</sup> × a<sup>n</sup> = a<sup>m+n</sup></h5>
+                    <p>Dalam perkalian bilangan berpangkat dengan basis sama, kita cukup menjumlahkan pangkatnya.</p>
+                    <div class="p-3 bg-white border rounded mb-3 text-center">
+                        Contoh: 2<sup>2</sup> × 2<sup>3</sup> = 2<sup>(2+3)</sup> = 2<sup>5</sup> = 32
+                    </div>
+                    <h6 style="color: #3E2723;">✍️ Tantangan Cepat:</h6>
+                    <p>Berapakah hasil dari 3<sup>2</sup> × 3<sup>1</sup>?</p>
+                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp1', '27', this)">9</button>
+                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp1', '27', this)">27</button>
+                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp1', '27', this)">81</button>
+                    <div id="res-exp1" class="mt-2 fw-bold"></div>
+                </div>
+
+                <div id="sifat2" class="tab-content">
+                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>0</sup> = 1</h5>
+                    <p>Setiap bilangan bukan nol jika dipangkatkan dengan 0 hasilnya adalah 1.</p>
+                    <div class="p-3 bg-white border rounded mb-3 text-center fw-bold" style="color: #3E2723;">
+                        1.000.000<sup>0</sup> = 1
+                    </div>
+                    <h6>🧠 Analisis Siswa:</h6>
+                    <textarea class="form-control mb-3" placeholder="Tuliskan alasan mengapa a^0 = 1 menurut pemahamanmu..."></textarea>
+                </div>
+
+                <div id="sifat3" class="tab-content">
+                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>-n</sup> = 1 / a<sup>n</sup></h5>
+                    <p>Bilangan dengan pangkat negatif sama dengan kebalikannya (seper-bilangan tersebut) dengan pangkat positif.</p>
+                    <div class="p-3 bg-white border rounded mb-3 text-center">
+                        Contoh: 5<sup>-2</sup> = 1 / 5<sup>2</sup> = 1/25
+                    </div>
+                    <h6 style="color: #3E2723;">✍️ Uji Logika:</h6>
+                    <p>Berapakah nilai dari 2<sup>-1</sup>?</p>
+                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp3', '0,5', this)">0,5</button>
+                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp3', '0,5', this)">-2</button>
+                    <div id="res-exp3" class="mt-2 fw-bold"></div>
+                </div>
+
+                <div id="sifat4" class="tab-content">
+                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>m/n</sup> = <sup>n</sup>√a<sup>m</sup></h5>
+                    <p>Pangkat pecahan dapat diubah ke dalam bentuk akar, di mana penyebut pangkat menjadi indeks akar.</p>
+                    
+
+[Image of relationship between fractional exponents and radicals]
+
+                    <div class="p-3 bg-white border rounded mb-3 text-center">
+                        Contoh: 16<sup>1/2</sup> = √16 = 4 <br>
+                        Contoh: 27<sup>1/3</sup> = ∛27 = 3
+                    </div>
+                    <h6 style="color: #3E2723;">✍️ Tantangan:</h6>
+                    <p>Berapakah nilai dari 9<sup>1/2</sup>?</p>
+                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp4', '3', this)">3</button>
+                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp4', '3', this)">4,5</button>
+                    <div id="res-exp4" class="mt-2 fw-bold"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" style="border-color: #3E2723 !important;">
+            <h2 style="color: #3E2723;"><i class="fa-solid fa-gamepad"></i> Quiz Zone</h2>
+            <p>Uji pemahamanmu setelah mempelajari materi di atas!</p>
+
+            <div class="geo-box mb-4">
+                <h5>1. Mana yang lebih besar nilainya antara 2<sup>4</sup> dan 4<sup>2</sup>?</h5>
+                <button class="btn btn-dark m-1" onclick="cekGame('g1', 'benar', this)">Keduanya Sama (16)</button>
+                <button class="btn btn-dark m-1" onclick="cekGame('g1', 'salah', this)">2 pangkat 4</button>
+                <div id="game-g1" class="mt-2 fw-bold"></div>
+            </div>
+
+            <div class="geo-box mb-4">
+                <h5>2. Jika 2<sup>x</sup> = 16, berapakah nilai x?</h5>
+                <button class="btn btn-dark m-1" onclick="cekGame('g2', 'salah', this)">3</button>
+                <button class="btn btn-dark m-1" onclick="cekGame('g2', 'benar', this)">4</button>
+                <div id="game-g2" class="mt-2 fw-bold"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function updateSim() {
+    let a = parseInt(document.getElementById('inputA').value);
+    let n = parseInt(document.getElementById('inputN').value);
+    
+    document.getElementById('lblA').innerText = a;
+    document.getElementById('lblN').innerText = n;
+    document.getElementById('baseText').innerText = a;
+    document.getElementById('expText').innerText = n;
+    
+    // Logika perhitungan pangkat
+    let result = Math.pow(a, n);
+    document.getElementById('resValue').innerText = result.toLocaleString('id-ID');
+    
+    let steps = [];
+    if (n === 0) {
+        steps.push("1 (Sesuai sifat a⁰ = 1)");
+    } else {
+        for(let i=0; i<n; i++) { steps.push(a); }
+    }
+    document.getElementById('stepVisual').innerText = steps.join(' × ');
+}
+
+function openTab(btn, id){
+    document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+    document.querySelectorAll('.tab-menu button').forEach(b=>b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+}
+
+function cekEksplorasi(idTarget, kunci, elemen) {
+    let res = document.getElementById('res-' + idTarget);
+    if(elemen.innerText.trim() == kunci) {
+        res.innerHTML = "<span class='text-success'>✅ Benar! Jawaban tepat.</span>";
+    } else {
+        res.innerHTML = "<span class='text-danger'>❌ Kurang tepat. Coba hitung lagi!</span>";
+    }
+}
+
+function cekGame(id, status, elemen) {
+    let res = document.getElementById('game-' + id);
+    if(status === 'benar') {
+        res.innerHTML = "<span class='text-success'>🌟 HEBAT! Kamu memahaminya.</span>";
+    } else {
+        res.innerHTML = "<span class='text-danger'>☁️ Coba hitung kembali ya.</span>";
+    }
+}
+
+updateSim();
+</script>
+</body>
+</html>
+/
