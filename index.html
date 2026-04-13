@@ -7,129 +7,84 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <style>
         *{box-sizing:border-box;font-family:'Segoe UI',Tahoma,Verdana,sans-serif}
+        body{margin:0;background: #D2B48C; color: #3E2723; overflow-x:hidden;}
+        
+        .navbar{background: #5D4037; border-bottom: 2px solid #3E2723;}
+        .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;color: #D2B48C; text-decoration:none;}
+        
+        .hero{min-height: 100vh; padding:100px 15px 40px;}
+        .hero h1{font-size:3.5rem;font-weight:800;color: #3E2723;}
+        
+        .section{background: #F5F5DC; border: 2px solid #5D4037; border-radius:18px; padding:25px; margin-bottom:30px; box-shadow: 0 8px 15px rgba(62, 39, 35, 0.2);}
+        .geo-box{background: #EADBC8; border: 1px solid #5D4037; border-radius:16px; padding:20px; margin-bottom: 15px;}
 
-        body{
-            margin:0;
-            background: #D2B48C; 
-            color: #3E2723; 
-            overflow-x:hidden;
-        }
-
-        /* NAVBAR */
-        .navbar{
-            background: #5D4037; 
-            border-bottom: 2px solid #3E2723;
-        }
-
-        .brand{
-            display:flex;
-            align-items:center;
-            gap:10px;
-            font-weight:800;
-            font-size:20px;
-            color: #D2B48C; 
-            text-decoration:none;
-        }
-
-        /* HERO */
-        .hero{
-            min-height: 100vh;
-            padding:100px 15px 40px;
-        }
-
-        .hero h1{
-            font-size:3.5rem;
-            font-weight:800;
-            color: #3E2723;
-        }
-
-        /* CARD SECTION */
-        .section{
-            background: #F5F5DC; 
-            border: 2px solid #5D4037;
-            border-radius:18px;
-            padding:25px;
-            margin-bottom:30px;
-            box-shadow: 0 8px 15px rgba(62, 39, 35, 0.2);
-        }
-
-        .geo-box{
-            background: #EADBC8;
-            border: 1px solid #5D4037;
-            border-radius:16px;
-            padding:20px;
-            margin-bottom: 15px;
-        }
-
-        /* SIMULATOR BOX */
-        .simulator-card {
-            background: linear-gradient(135deg, #FAF3E0, #EADBC8);
-            border: 3px solid #5D4037;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-        }
-
-        .math-display {
-            font-size: 4rem;
-            font-weight: 800;
-            color: #3E2723;
-        }
-
-        .result-display {
-            font-size: 3.5rem;
-            color: #3E2723;
-            font-weight: 900;
-        }
+        /* SIMULATOR */
+        .simulator-card {background: linear-gradient(135deg, #FAF3E0, #EADBC8); border: 3px solid #5D4037; padding: 25px; border-radius: 20px; text-align: center;}
+        .math-display {font-size: 4rem; font-weight: 800; color: #3E2723;}
+        .result-display {font-size: 3.5rem; color: #3E2723; font-weight: 900;}
 
         /* TAB MENU */
-        .tab-menu{
-            display:flex;
-            gap:10px;
-            margin-bottom:20px;
-            flex-wrap: wrap;
-        }
+        .tab-menu{display:flex; gap:10px; margin-bottom:20px; flex-wrap: wrap;}
+        .tab-menu button{background: #EADBC8; color: #3E2723; border: 2px solid #5D4037; padding:10px 20px; border-radius:12px; cursor:pointer; font-weight:600; transition:.3s;}
+        .tab-menu button:hover, .tab-menu button.active{background: #5D4037; color: #D2B48C;}
 
-        .tab-menu button{
-            background: #EADBC8;
-            color: #3E2723;
-            border: 2px solid #5D4037;
-            padding:10px 20px;
-            border-radius:12px;
-            cursor:pointer;
-            font-weight:600;
-            transition:.3s;
-        }
+        .sub-tab-menu{display:flex; gap:8px; margin-bottom:20px; flex-wrap: wrap; border-bottom: 2px solid #5D4037; padding-bottom: 15px;}
+        .sub-tab-menu button{background: #FAF3E0; color: #5D4037; border: 1px solid #5D4037; padding:8px 15px; border-radius:8px; font-weight: bold; transition: .2s;}
+        .sub-tab-menu button:hover, .sub-tab-menu button.active{background: #8D6E63; color: white;}
 
-        .tab-menu button:hover,
-        .tab-menu button.active{
-            background: #5D4037;
-            color: #D2B48C;
-        }
-
-        .tab-content{display:none}
-        .tab-content.active{display:block}
-
+        .tab-content, .sub-tab-content{display:none}
+        .tab-content.active, .sub-tab-content.active{display:block}
+        
         input[type=range] { width: 100%; accent-color: #5D4037; cursor: pointer; }
 
-        @media(max-width:768px){
-            .hero h1{font-size:2.5rem}
-            .math-display{font-size: 2.5rem}
+        /* TABEL STYLING */
+        .table { background-color: #FAF3E0 !important; border-color: #5D4037 !important; }
+        .table thead th { background-color: #8D6E63 !important; color: white !important; border-color: #5D4037 !important; }
+        .table tbody td { background-color: #FAF3E0 !important; color: #3E2723 !important; border-color: #5D4037 !important; }
+
+        .box-cokelat-tua {
+            background-color: #5D4037 !important; 
+            color: #FFFFFF !important; 
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border-left: 6px solid #3E2723;
         }
+        .box-cokelat-tua strong { color: #FFFFFF !important; } 
+
+        /* KUIS STYLING (NEW) */
+        .quiz-option {
+            background: #FAF3E0;
+            border: 2px solid #5D4037;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: block;
+            width: 100%;
+            text-align: left;
+            font-size: 1.1rem;
+        }
+        .quiz-option:hover { background: #EADBC8; }
+        .quiz-option.correct { background-color: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .quiz-option.wrong { background-color: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
+        .feedback-box { padding: 15px; border-radius: 10px; margin-top: 15px; display: none; }
+        
+        @media(max-width:768px){ .hero h1{font-size:2.5rem} .math-display{font-size: 2.5rem} }
     </style>
 </head>
-
 <body>
 
 <nav class="navbar fixed-top">
     <div class="container d-flex justify-content-between align-items-center">
-        <a class="brand" href="#">
-            <i class="fa-solid fa-graduation-cap"></i>
-            Nurul Pusparini Az-zahra
-        </a>
+        <a class="brand" href="#"><i class="fa-solid fa-graduation-cap"></i> Nurul Pusparini Az-zahra</a>
         <span class="badge text-white" style="background-color: #3E2723;">E-Learning Eksponen</span>
     </div>
 </nav>
@@ -138,21 +93,17 @@
     <div class="container">
         <small class="text-uppercase fw-bold" style="color: #3E2723;">Digital Learning Media</small>
         <h1 class="mt-2">BILANGAN BERPANGKAT</h1>
-        <p class="mt-3 fs-5" style="color: #5D4037;">
-            Eksplorasi konsep matematika interaktif bersama Nurul Pusparini Az-zahra.
-        </p>
+        <p class="mt-3 fs-5" style="color: #5D4037;">Eksplorasi konsep matematika interaktif bersama Nurul Pusparini Az-zahra.</p>
 
         <div class="section">
-            <h4 class="mb-3" style="color: #3E2723;">
-                <i class="fa-solid fa-book-open"></i> Apa itu Bilangan Berpangkat?
-            </h4>
+            <h4 class="mb-3" style="color: #3E2723;"><i class="fa-solid fa-book-open"></i> Apa itu Bilangan Berpangkat?</h4>
             <div class="row align-items-center">
                 <div class="col-md-7">
                     <p style="text-align:justify" class="fs-5">
-                        Bilangan berpangkat adalah bentuk <b>perkalian berulang</b> dari suatu bilangan (disebut <b>basis / bilangan pokok</b>) dengan dirinya sendiri sebanyak pangkatnya (<b>n</b>). Secara umum ditulis:
+                        Bilangan berpangkat adalah bentuk <b>perkalian berulang</b> dari suatu bilangan (disebut <b>basis</b>) dengan dirinya sendiri sebanyak pangkatnya (<b>n</b>). Secara umum ditulis:
                     </p>
                     <div class="geo-box text-center">
-                        <h2 style="color: #3E2723;">a<sup>n</sup> = a × a × a × ... × a</h2>
+                        <h2 style="color: #3E2723;">\(a^n = a \times a \times a \times \dots \times a\)</h2>
                         <small style="color: #5D4037;">(Sebanyak n faktor)</small>
                     </div>
                 </div>
@@ -166,7 +117,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="section mt-4">
             <h2 class="mb-4 text-center" style="color: #3E2723;">Power Simulator Interaktif</h2>
             <div class="row g-4">
@@ -177,28 +128,19 @@
                         </div>
                         <div class="mt-2 fs-5" style="color: #5D4037;">Hasil:</div>
                         <div class="result-display fw-bold" id="resValue">125</div>
-                        <div class="mt-3 p-2 bg-white text-dark rounded border" id="stepVisual" style="font-style: italic; font-size: 0.9rem;">
-                            5 × 5 × 5
-                        </div>
+                        <div class="mt-3 p-2 bg-white text-dark rounded border" id="stepVisual" style="font-style: italic; font-size: 0.9rem;">5 × 5 × 5</div>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="geo-box h-100 d-flex flex-column justify-content-center">
                         <div class="mb-4">
-                            <label class="form-label d-flex justify-content-between">
-                                <span>Basis (a)</span>
-                                <b style="color: #3E2723;" id="lblA">5</b>
-                            </label>
+                            <label class="form-label d-flex justify-content-between"><span>Basis (a)</span><b id="lblA">5</b></label>
                             <input type="range" id="inputA" min="1" max="10" value="5" oninput="updateSim()">
                         </div>
                         <div class="mb-2">
-                            <label class="form-label d-flex justify-content-between">
-                                <span>Pangkat (n)</span>
-                                <b style="color: #3E2723;" id="lblN">3</b>
-                            </label>
+                            <label class="form-label d-flex justify-content-between"><span>Pangkat (n)</span><b id="lblN">3</b></label>
                             <input type="range" id="inputN" min="0" max="10" value="3" oninput="updateSim()">
                         </div>
-                        <p class="small mt-3 italic" style="color: #5D4037;">*Geser slider untuk melihat sifat nilai secara otomatis.</p>
                     </div>
                 </div>
             </div>
@@ -206,142 +148,505 @@
 
         <div class="section">
             <h2 style="color: #3E2723;"><i class="fa-solid fa-lightbulb"></i> Eksplorasi Konsep</h2>
+            
             <div class="tab-menu">
-                <button class="active" onclick="openTab(this,'sifat1')">Pangkat Positif</button>
-                <button onclick="openTab(this,'sifat2')">Pangkat Nol</button>
-                <button onclick="openTab(this,'sifat3')">Pangkat Negatif</button>
-                <button onclick="openTab(this,'sifat4')">Pangkat Pecahan</button>
+                <button class="active" onclick="openMainTab(this,'tabPositif')">Pangkat Positif</button>
+                <button onclick="openMainTab(this,'tabNol')">Pangkat Nol</button>
+                <button onclick="openMainTab(this,'tabNegatif')">Pangkat Negatif</button>
+                <button onclick="openMainTab(this,'tabPecahan')">Pecahan Berpangkat</button>
             </div>
 
             <div class="geo-box">
-                <div id="sifat1" class="tab-content active">
-                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>m</sup> × a<sup>n</sup> = a<sup>m+n</sup></h5>
-                    <p>Dalam perkalian bilangan berpangkat dengan basis sama, kita cukup menjumlahkan pangkatnya.</p>
-                    <div class="p-3 bg-white border rounded mb-3 text-center">
-                        Contoh: 2<sup>2</sup> × 2<sup>3</sup> = 2<sup>(2+3)</sup> = 2<sup>5</sup> = 32
+                <div id="tabPositif" class="tab-content active">
+                    <div class="sub-tab-menu">
+                        <button class="active" onclick="openSubTab(this,'subA')">(a) Perkalian</button>
+                        <button onclick="openSubTab(this,'subB')">(b) Pembagian</button>
+                        <button onclick="openSubTab(this,'subC')">(c) Perpangkatan</button>
+                        <button onclick="openSubTab(this,'subD')">(d) Pangkat Perkalian</button>
+                        <button onclick="openSubTab(this,'subE')">(e) Pangkat Pembagian</button>
                     </div>
-                    <h6 style="color: #3E2723;">✍️ Tantangan Cepat:</h6>
-                    <p>Berapakah hasil dari 3<sup>2</sup> × 3<sup>1</sup>?</p>
-                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp1', '27', this)">9</button>
-                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp1', '27', this)">27</button>
-                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp1', '27', this)">81</button>
-                    <div id="res-exp1" class="mt-2 fw-bold"></div>
+
+                    <div id="subA" class="sub-tab-content active">
+                        <div style="padding: 10px 0;">
+                            <h5 style="color: #3E2723; font-weight: bold;">
+                                <i class="fa-solid fa-layer-group"></i> Sifat Perkalian Bilangan Berpangkat Positif
+                            </h5>
+                            <p>Ketika mengalikan dua bilangan berpangkat dengan <b>basis yang sama</b>, penyelesaiannya adalah dengan <b>menjumlahkan pangkatnya</b>.</p>
+                            
+                            <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                                <h3 style="color: #3E2723; margin: 0;">\(a^m \times a^n = a^{m+n}\)</h3>
+                            </div>
+
+                            <p class="fw-bold mt-4"><i class="fa-solid fa-magnifying-glass-chart" style="color: #5D4037;"></i> Contoh Analisis Pola:</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Bentuk Soal</th>
+                                            <th>Proses Penguraian</th>
+                                            <th>Hasil (Sederhana)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>\(a^3 \times a^2\)</td>
+                                            <td>\((a \times a \times a) \times (a \times a)\)</td>
+                                            <td>\(a^{3+2} = a^5\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\(5^2 \times 5^4\)</td>
+                                            <td>\((5 \times 5) \times (5 \times 5 \times 5 \times 5)\)</td>
+                                            <td>\(5^{2+4} = 5^6\)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong>Logika:</strong> Mengapa dijumlahkan? Karena pangkat menunjukkan jumlah faktor angka yang muncul dalam rangkaian perkalian panjang tersebut.
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Catatan Penting:</strong>
+                                Sifat ini <b>HANYA</b> berlaku jika basisnya sama. Jika berbeda (misal \(2^3 \times 3^2\)), maka pangkat tidak boleh dijumlahkan.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="subB" class="sub-tab-content">
+                        <div style="padding: 10px 0;">
+                            <h5 style="color: #3E2723; font-weight: bold;">
+                                <i class="fa-solid fa-scissors"></i> Sifat Pembagian Bilangan Berpangkat Positif
+                            </h5>
+                            <p>Untuk pembagian bilangan berpangkat dengan <b>basis yang sama</b>, penyelesaiannya adalah dengan <b>mengurangkan pangkatnya</b>.</p>
+                            
+                            <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                                <h3 style="color: #3E2723; margin: 0;">\(\frac{a^m}{a^n} = a^{m-n}\)</h3>
+                                <small>dengan \(a \neq 0\)</small>
+                            </div>
+
+                            <p class="fw-bold mt-4"><i class="fa-solid fa-magnifying-glass-chart" style="color: #5D4037;"></i> Contoh Analisis Pola:</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Bentuk Soal</th>
+                                            <th>Proses Penguraian</th>
+                                            <th>Hasil (Sederhana)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>\(\frac{a^5}{a^2}\)</td>
+                                            <td>\(\frac{a \times a \times a \times \cancel{a} \times \cancel{a}}{\cancel{a} \times \cancel{a}}\)</td>
+                                            <td>\(a^{5-2} = a^3\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\(\frac{3^6}{3^4}\)</td>
+                                            <td>\(\frac{3 \times 3 \times \cancel{3} \times \cancel{3} \times \cancel{3} \times \cancel{3}}{\cancel{3} \times \cancel{3} \times \cancel{3} \times \cancel{3}}\)</td>
+                                            <td>\(3^{6-4} = 3^2 = 9\)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong>Logika:</strong> Mengapa dikurangkan? Karena dalam pembagian, faktor-faktor yang sama pada pembilang dan penyebut akan saling meniadakan (habis dibagi), sehingga sisa faktornya adalah selisih antara jumlah pangkat atas dan pangkat bawah.
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Catatan Penting:</strong>
+                                Sama seperti perkalian, basis harus identik. Selain itu, basis (\(a\)) tidak boleh nol karena pembagian dengan nol tidak terdefinisi.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="subC" class="sub-tab-content">
+                        <div style="padding: 10px 0;">
+                            <h5 style="color: #3E2723; font-weight: bold;">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> Sifat Perpangkatan Bilangan Berpangkat Positif
+                            </h5>
+                            <p>Jika suatu bilangan berpangkat <b>dipangkatkan lagi</b>, maka penyelesaiannya adalah dengan <b>mengalikan pangkat-pangkatnya</b>.</p>
+                            
+                            <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                                <h3 style="color: #3E2723; margin: 0;">\((a^m)^n = a^{m \times n}\)</h3>
+                            </div>
+
+                            <p class="fw-bold mt-4"><i class="fa-solid fa-magnifying-glass-chart" style="color: #5D4037;"></i> Contoh Analisis Pola:</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Bentuk Soal</th>
+                                            <th>Proses Penguraian</th>
+                                            <th>Hasil (Sederhana)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>\((a^3)^2\)</td>
+                                            <td>\((a^3) \times (a^3) = (a \times a \times a) \times (a \times a \times a)\)</td>
+                                            <td>\(a^{3 \times 2} = a^6\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\((5^2)^3\)</td>
+                                            <td>\((5^2) \times (5^2) \times (5^2) = (5 \times 5) \times (5 \times 5) \times (5 \times 5)\)</td>
+                                            <td>\(5^{2 \times 3} = 5^6\)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong>Logika:</strong> Mengapa dikalikan? Karena pangkat luar (\(n\)) menentukan berapa kali kelompok bilangan di dalam kurung (\(a^m\)) dikalikan berulang.
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Catatan Penting:</strong>
+                                Pastikan posisi tanda kurung benar, karena \(a^{m^n}\) (pangkat bertingkat tanpa kurung) memiliki cara hitung yang berbeda dengan \((a^m)^n\).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="subD" class="sub-tab-content">
+                        <div style="padding: 10px 0;">
+                            <h5 style="color: #3E2723; font-weight: bold;">
+                                <i class="fa-solid fa-vials"></i> Sifat Perpangkatan pada Perkalian Dua Bilangan
+                            </h5>
+                            <p>Pangkat dari suatu perkalian bilangan adalah sama dengan <b>perkalian dari masing-masing bilangan</b> yang telah dipangkatkan.</p>
+                            
+                            <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                                <h3 style="color: #3E2723; margin: 0;">\((a \times b)^n = a^n \times b^n\)</h3>
+                            </div>
+
+                            <p class="fw-bold mt-4"><i class="fa-solid fa-magnifying-glass-chart" style="color: #5D4037;"></i> Contoh Analisis Pola:</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Bentuk Soal</th>
+                                            <th>Proses Penguraian</th>
+                                            <th>Hasil (Sederhana)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>\((a \times b)^3\)</td>
+                                            <td>\((a \times b) \times (a \times b) \times (a \times b)\)</td>
+                                            <td>\(a^3 \times b^3\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\((2 \times 3)^2\)</td>
+                                            <td>\((2 \times 3) \times (2 \times 3) = (2 \times 2) \times (3 \times 3)\)</td>
+                                            <td>\(2^2 \times 3^2 = 4 \times 9 = 36\)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong>Logika:</strong> Karena sifat komutatif perkalian, kita bisa mengumpulkan semua basis yang sama (\(a\)) dan (\(b\)) secara terpisah untuk kemudian dipangkatkan masing-masing.
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Catatan Penting:</strong>
+                                Sifat ini <b>TIDAK</b> berlaku untuk penjumlahan atau pengurangan. Contoh: \((a + b)^n \neq a^n + b^n\).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="subE" class="sub-tab-content">
+                        <div style="padding: 10px 0;">
+                            <h5 style="color: #3E2723; font-weight: bold;">
+                                <i class="fa-solid fa-percent"></i> Sifat Perpangkatan pada Pembagian Dua Bilangan
+                            </h5>
+                            <p>Pangkat dari suatu pembagian bilangan adalah sama dengan <b>pembagian dari masing-masing bilangan</b> yang telah dipangkatkan.</p>
+                            
+                            <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                                <h3 style="color: #3E2723; margin: 0;">\((\frac{a}{b})^n = \frac{a^n}{b^n}\)</h3>
+                                <small>dengan \(b \neq 0\)</small>
+                            </div>
+
+                            <p class="fw-bold mt-4"><i class="fa-solid fa-magnifying-glass-chart" style="color: #5D4037;"></i> Contoh Analisis Pola:</p>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-bordered text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Bentuk Soal</th>
+                                            <th>Proses Penguraian</th>
+                                            <th>Hasil (Sederhana)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>\((\frac{a}{b})^3\)</td>
+                                            <td>\(\frac{a}{b} \times \frac{a}{b} \times \frac{a}{b} = \frac{a \times a \times a}{b \times b \times b}\)</td>
+                                            <td>\(\frac{a^3}{b^3}\)</td>
+                                        </tr>
+                                        <tr>
+                                            <td>\((\frac{4}{2})^2\)</td>
+                                            <td>\(\frac{4}{2} \times \frac{4}{2} = \frac{4 \times 4}{2 \times 2}\)</td>
+                                            <td>\(\frac{4^2}{2^2} = \frac{16}{4} = 4\)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong>Logika:</strong> Dalam perkalian pecahan, pembilang dikalikan dengan pembilang, dan penyebut dikalikan dengan penyebut secara berulang sebanyak pangkat \(n\).
+                            </div>
+
+                            <div class="box-cokelat-tua">
+                                <strong><i class="fa-solid fa-triangle-exclamation"></i> Catatan Penting:</strong>
+                                Syarat mutlak adalah penyebut (\(b\)) tidak boleh nol karena pembagian dengan nol tidak terdefinisi dalam matematika.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="sifat2" class="tab-content">
-                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>0</sup> = 1</h5>
-                    <p>Setiap bilangan bukan nol jika dipangkatkan dengan 0 hasilnya adalah 1.</p>
-                    <div class="p-3 bg-white border rounded mb-3 text-center fw-bold" style="color: #3E2723;">
-                        1.000.000<sup>0</sup> = 1
-                    </div>
-                    <h6>🧠 Analisis Siswa:</h6>
-                    <textarea class="form-control mb-3" placeholder="Tuliskan alasan mengapa a^0 = 1 menurut pemahamanmu..."></textarea>
-                </div>
-
-                <div id="sifat3" class="tab-content">
-                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>-n</sup> = 1 / a<sup>n</sup></h5>
-                    <p>Bilangan dengan pangkat negatif sama dengan kebalikannya (seper-bilangan tersebut) dengan pangkat positif.</p>
-                    <div class="p-3 bg-white border rounded mb-3 text-center">
-                        Contoh: 5<sup>-2</sup> = 1 / 5<sup>2</sup> = 1/25
-                    </div>
-                    <h6 style="color: #3E2723;">✍️ Uji Logika:</h6>
-                    <p>Berapakah nilai dari 2<sup>-1</sup>?</p>
-                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp3', '0,5', this)">0,5</button>
-                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp3', '0,5', this)">-2</button>
-                    <div id="res-exp3" class="mt-2 fw-bold"></div>
-                </div>
-
-                <div id="sifat4" class="tab-content">
-                    <h5 class="mb-3" style="color: #3E2723;">Sifat: a<sup>m/n</sup> = <sup>n</sup>√a<sup>m</sup></h5>
-                    <p>Pangkat pecahan dapat diubah ke dalam bentuk akar, di mana penyebut pangkat menjadi indeks akar.</p>
+                <div id="tabNol" class="tab-content">
+                    <h5 style="color: #3E2723; font-weight: bold;"><i class="fa-solid fa-circle-dot"></i> Bilangan Pangkat Nol</h5>
+                    <p>Setiap bilangan real \(a\) yang tidak sama dengan nol (\(a \neq 0\)), jika dipangkatkan dengan 0, hasilnya akan selalu <b>1</b>.</p>
                     
-
-[Image of relationship between fractional exponents and radicals]
-
-                    <div class="p-3 bg-white border rounded mb-3 text-center">
-                        Contoh: 16<sup>1/2</sup> = √16 = 4 <br>
-                        Contoh: 27<sup>1/3</sup> = ∛27 = 3
+                    <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                        <h3 style="color: #3E2723; margin: 0;">\(a^0 = 1\)</h3>
+                        <small>dengan \(a \neq 0\)</small>
                     </div>
-                    <h6 style="color: #3E2723;">✍️ Tantangan:</h6>
-                    <p>Berapakah nilai dari 9<sup>1/2</sup>?</p>
-                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp4', '3', this)">3</button>
-                    <button class="btn btn-outline-dark m-1" onclick="cekEksplorasi('exp4', '3', this)">4,5</button>
-                    <div id="res-exp4" class="mt-2 fw-bold"></div>
+
+                    <p class="fw-bold mt-4"><i class="fa-solid fa-magnifying-glass-chart" style="color: #5D4037;"></i> Contoh:</p>
+                    <ul>
+                        <li>\(10^0 = 1\)</li>
+                        <li>\(152^0 = 1\)</li>
+                        <li>\((-5)^0 = 1\)</li>
+                        <li>\((\frac{1}{2})^0 = 1\)</li>
+                    </ul>
+
+                    <div class="box-cokelat-tua">
+                        <strong>Logika:</strong> Hal ini didapat dari sifat pembagian. Misal: \(\frac{a^n}{a^n} = a^{n-n} = a^0\). Karena suatu bilangan dibagi dirinya sendiri adalah 1, maka \(a^0 = 1\).
+                    </div>
+
+                    <div class="box-cokelat-tua">
+                        <strong><i class="fa-solid fa-triangle-exclamation"></i> Catatan Penting:</strong>
+                        Sifat ini <b>TIDAK</b> berlaku untuk angka nol. Bentuk \(0^0\) (nol pangkat nol) dalam matematika disebut sebagai bentuk <b>tak tentu</b>.
+                    </div>
+                </div>
+
+                <div id="tabNegatif" class="tab-content">
+                    <h5 style="color: #3E2723; font-weight: bold;"><i class="fa-solid fa-arrow-down-z-a"></i> Bilangan Pangkat Negatif</h5>
+                    <p>Bilangan berpangkat negatif merupakan bentuk <b>kebalikan (resiprokal)</b> dari bilangan berpangkat positifnya.</p>
+                    
+                    <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                        <h3 style="color: #3E2723; margin: 0;">\(a^{-n} = \frac{1}{a^n}\)</h3>
+                    </div>
+
+                    <p class="fw-bold mt-3">Contoh:</p>
+                    <ul>
+                        <li>\(5^{-2} = \frac{1}{5^2} = \frac{1}{25}\)</li>
+                        <li>\(2^{-3} = \frac{1}{2^3} = \frac{1}{8}\)</li>
+                    </ul>
+
+                    <div class="box-cokelat-tua">
+                        <strong>Catatan:</strong> Pangkat negatif bukan berarti hasilnya bilangan negatif, melainkan menunjukkan posisi bilangan tersebut sebagai penyebut (di bawah per).
+                    </div>
+                </div>
+
+                <div id="tabPecahan" class="tab-content">
+                    <h5 style="color: #3E2723; font-weight: bold;"><i class="fa-solid fa-divide"></i> Bilangan Pecahan Perpangkat</h5>
+                    <p>Jika sebuah bilangan pecahan dipangkatkan, maka <b>pembilang</b> dan <b>penyebutnya</b> masing-masing harus dipangkatkan dengan eksponen tersebut.</p>
+                    
+                    <div class="geo-box text-center" style="background: #FAF3E0; border: 2px solid #5D4037;">
+                        <h3 style="color: #3E2723; margin: 0;">\(\left( \frac{a}{b} \right)^n = \frac{a^n}{b^n}\)</h3>
+                        <small>dengan \(b \neq 0\)</small>
+                    </div>
+
+                    <p class="fw-bold mt-3">Contoh Analisis:</p>
+                    <ul>
+                        <li>\(\left( \frac{2}{3} \right)^2 = \frac{2^2}{3^2} = \frac{4}{9}\)</li>
+                        <li>\(\left( \frac{1}{5} \right)^3 = \frac{1^3}{5^3} = \frac{1}{125}\)</li>
+                    </ul>
+
+                    <div class="box-cokelat-tua">
+                        <strong>Logika:</strong> Mengapa keduanya dipangkatkan? Karena \(\left( \frac{a}{b} \right)^n\) berarti mengalikan pecahan \(\frac{a}{b}\) sebanyak \(n\) kali. Dalam perkalian pecahan, atas dikali atas (pembilang) dan bawah dikali bawah (penyebut).
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="section" style="border-color: #3E2723 !important;">
-            <h2 style="color: #3E2723;"><i class="fa-solid fa-gamepad"></i> Quiz Zone</h2>
-            <p>Uji pemahamanmu setelah mempelajari materi di atas!</p>
-
-            <div class="geo-box mb-4">
-                <h5>1. Mana yang lebih besar nilainya antara 2<sup>4</sup> dan 4<sup>2</sup>?</h5>
-                <button class="btn btn-dark m-1" onclick="cekGame('g1', 'benar', this)">Keduanya Sama (16)</button>
-                <button class="btn btn-dark m-1" onclick="cekGame('g1', 'salah', this)">2 pangkat 4</button>
-                <div id="game-g1" class="mt-2 fw-bold"></div>
+        <div class="section mt-5" id="kuisSection">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 style="color: #3E2723;"><i class="fa-solid fa-pen-to-square"></i> Uji Pemahaman Konsep</h2>
+                <div class="badge bg-primary p-2 fs-6" id="scoreBadge">Skor: 0</div>
             </div>
 
-            <div class="geo-box mb-4">
-                <h5>2. Jika 2<sup>x</sup> = 16, berapakah nilai x?</h5>
-                <button class="btn btn-dark m-1" onclick="cekGame('g2', 'salah', this)">3</button>
-                <button class="btn btn-dark m-1" onclick="cekGame('g2', 'benar', this)">4</button>
-                <div id="game-g2" class="mt-2 fw-bold"></div>
+            <div id="quizContainer">
+                <div id="questionWrapper">
+                    <h5 id="questionText" class="mb-4">Memuat soal...</h5>
+                    <div id="optionsContainer">
+                        </div>
+                </div>
+
+                <div id="feedback" class="feedback-box">
+                    </div>
+
+                <div id="quizFooter" class="mt-4 text-center" style="display:none;">
+                    <button class="btn btn-dark btn-lg w-100" onclick="nextQuestion()">Lanjutkan ke Soal Berikutnya</button>
+                </div>
             </div>
+
+            <div id="finalResult" class="text-center p-4" style="display:none;">
+    <h3>Latihan Selesai!</h3>
+    <h1 class="display-1 fw-bold">
+        <span class="fs-2 fw-normal">Skor Anda:</span> <span id="finalScoreDisplay">0</span>/100
+    </h1>
+    <p class="fs-4" id="scoreMessage"></p>
+    <button class="btn btn-primary mt-3" onclick="restartQuiz()">Ulangi Kuis</button>
+</div>
         </div>
-    </div>
+        </div>
 </section>
 
 <script>
-function updateSim() {
-    let a = parseInt(document.getElementById('inputA').value);
-    let n = parseInt(document.getElementById('inputN').value);
-    
-    document.getElementById('lblA').innerText = a;
-    document.getElementById('lblN').innerText = n;
-    document.getElementById('baseText').innerText = a;
-    document.getElementById('expText').innerText = n;
-    
-    // Logika perhitungan pangkat
-    let result = Math.pow(a, n);
-    document.getElementById('resValue').innerText = result.toLocaleString('id-ID');
-    
-    let steps = [];
-    if (n === 0) {
-        steps.push("1 (Sesuai sifat a⁰ = 1)");
-    } else {
-        for(let i=0; i<n; i++) { steps.push(a); }
+    // FUNGSI LAMA
+    function updateSim() {
+        let a = parseInt(document.getElementById('inputA').value);
+        let n = parseInt(document.getElementById('inputN').value);
+        document.getElementById('lblA').innerText = a;
+        document.getElementById('lblN').innerText = n;
+        document.getElementById('baseText').innerText = a;
+        document.getElementById('expText').innerText = n;
+        let result = Math.pow(a, n);
+        document.getElementById('resValue').innerText = result.toLocaleString('id-ID');
+        let steps = [];
+        if (n === 0) { steps.push("1"); } 
+        else { for(let i=0; i<n; i++) { steps.push(a); } }
+        document.getElementById('stepVisual').innerText = steps.join(' × ');
     }
-    document.getElementById('stepVisual').innerText = steps.join(' × ');
-}
 
-function openTab(btn, id){
-    document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-    document.querySelectorAll('.tab-menu button').forEach(b=>b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-}
-
-function cekEksplorasi(idTarget, kunci, elemen) {
-    let res = document.getElementById('res-' + idTarget);
-    if(elemen.innerText.trim() == kunci) {
-        res.innerHTML = "<span class='text-success'>✅ Benar! Jawaban tepat.</span>";
-    } else {
-        res.innerHTML = "<span class='text-danger'>❌ Kurang tepat. Coba hitung lagi!</span>";
+    function openMainTab(btn, id){
+        document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+        document.querySelectorAll('.tab-menu button').forEach(b=>b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
     }
-}
 
-function cekGame(id, status, elemen) {
-    let res = document.getElementById('game-' + id);
-    if(status === 'benar') {
-        res.innerHTML = "<span class='text-success'>🌟 HEBAT! Kamu memahaminya.</span>";
-    } else {
-        res.innerHTML = "<span class='text-danger'>☁️ Coba hitung kembali ya.</span>";
+    function openSubTab(btn, id){
+        document.querySelectorAll('.sub-tab-content').forEach(el=>el.classList.remove('active'));
+        document.querySelectorAll('.sub-tab-menu button').forEach(b=>b.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        btn.classList.add('active');
     }
-}
 
-updateSim();
+    // LOGIKA KUIS BARU
+    const questions = [
+        {
+            q: "Hasil sederhana dari \\(a^4 \\times a^3\\) adalah...",
+            options: ["\\(a^{12}\\)", "\\(a^7\\)", "\\(a^1\\)", "\\(2a^7\\)"],
+            correct: 1,
+            hint: "Berdasarkan sifat perkalian eksponen: $$a^m \\times a^n = a^{m+n}$$. Maka $$4 + 3 = 7$$. Hasilnya adalah $a^7$."
+        },
+        {
+            q: "Nilai dari \\(100^0\\) adalah...",
+            options: ["0", "100", "1", "Tidak terdefinisi"],
+            correct: 2,
+            hint: "Setiap bilangan real $$a \\neq 0$$ jika dipangkatkan 0 hasilnya selalu $$1$$. Jadi $$100^0 = 1$$."
+        },
+        {
+            q: "Bentuk sederhana dari \\(\\frac{x^8}{x^3}\\) adalah...",
+            options: ["\\(x^5\\)", "\\(x^{11}\\)", "\\(x^{24}\\)", "\\(x^2\\)"],
+            correct: 0,
+            hint: "Sesuai sifat pembagian: $$\\frac{a^m}{a^n} = a^{m-n}$$. Maka $$8 - 3 = 5$$. Hasilnya $$x^5$$."
+        },
+        {
+            q: "Hasil dari \\((2^3)^2\\) adalah...",
+            options: ["\\(2^5\\)", "\\(2^9\\)", "\\(2^6\\)", "\\(2^1\\)"],
+            correct: 2,
+            hint: "Sifat perpangkatan: $$(a^m)^n = a^{m \\times n}$$. Maka $$3 \\times 2 = 6$$. Hasilnya $$2^6$$ atau 64."
+        },
+        {
+            q: "Nilai dari \\(3^{-2}\\) sama dengan...",
+            options: ["-6", "-9", "\\(\\frac{1}{6}\\)", "\\(\\frac{1}{9}\\)"],
+            correct: 3,
+            hint: "Pangkat negatif $$a^{-n} = \\frac{1}{a^n}$$. Maka $$3^{-2} = \\frac{1}{3^2} = \\frac{1}{9}$$."
+        }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        const q = questions[currentQuestion];
+        document.getElementById('questionText').innerHTML = `Soal ${currentQuestion + 1} dari 5:<br><strong>${q.q}</strong>`;
+        
+        const optionsHtml = q.options.map((opt, index) => 
+            `<button class="quiz-option" onclick="checkAnswer(${index})">${opt}</button>`
+        ).join('');
+        
+        document.getElementById('optionsContainer').innerHTML = optionsHtml;
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('quizFooter').style.display = 'none';
+        
+        if (window.MathJax) MathJax.typeset();
+    }
+
+    function checkAnswer(selectedIndex) {
+        const q = questions[currentQuestion];
+        const buttons = document.querySelectorAll('.quiz-option');
+        const feedback = document.getElementById('feedback');
+        
+        // Nonaktifkan semua tombol agar tidak bisa klik dua kali
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (selectedIndex === q.correct) {
+            buttons[selectedIndex].classList.add('correct');
+            score += 20;
+            feedback.innerHTML = `<div class="alert alert-success"><strong>Benar!</strong><br>${q.hint}</div>`;
+        } else {
+            buttons[selectedIndex].classList.add('wrong');
+            buttons[q.correct].classList.add('correct');
+            feedback.innerHTML = `<div class="alert alert-danger"><strong>Salah!</strong><br>${q.hint}</div>`;
+        }
+
+        document.getElementById('scoreBadge').innerText = `Skor: ${score}`;
+        feedback.style.display = 'block';
+        document.getElementById('quizFooter').style.display = 'block';
+        
+        if (window.MathJax) MathJax.typeset();
+    }
+
+    function nextQuestion() {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            showFinalResult();
+        }
+    }
+
+    function showFinalResult() {
+        document.getElementById('questionWrapper').style.display = 'none';
+        document.getElementById('quizFooter').style.display = 'none';
+        document.getElementById('feedback').style.display = 'none';
+        document.getElementById('finalResult').style.display = 'block';
+        document.getElementById('finalScoreDisplay').innerText = score;
+    }
+
+    function restartQuiz() {
+        currentQuestion = 0;
+        score = 0;
+        document.getElementById('scoreBadge').innerText = `Skor: 0`;
+        document.getElementById('questionWrapper').style.display = 'block';
+        document.getElementById('finalResult').style.display = 'none';
+        loadQuestion();
+    }
+
+    // Inisialisasi awal
+    updateSim();
+    loadQuestion();
 </script>
 </body>
 </html>
-/
